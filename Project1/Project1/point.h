@@ -13,7 +13,7 @@ private:
 public:	
 	/*
 	\brief constructor with parametras
-	\param x - abscise
+	\param x - absciseeee
 	\param y - ordinate
 	*/
 	Point(const double x ,const double y);
