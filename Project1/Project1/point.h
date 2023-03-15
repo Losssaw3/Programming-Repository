@@ -1,80 +1,53 @@
 ﻿#pragma once
 #include <iostream>
-
+using namespace std;
 /*
-\brief Point class 
+@brief Point class 
 */
 class Point {
 private:
-	double abscise;
+	double abscissa;
 	double ordinate;
 public:	
 	/*
-	\brief constructor with parametras
-	\param x - absciseeee
-	\param y - ordinate
+	@brief constructor with parameters , create a point-class object with parameters (abscissa , ordinate)
+	@param x - abscissa
+	@param y - ordinate
 	*/
 	Point(const double x ,const double y);
 
-
 	/*
-	\brief default constructor
+	@brief default constructor, which create a point-class object with paremeters (0 , 0)
 	*/
 	Point();
 
-
 	/*
-	\brief destructor
+	@brief a function that returns abscissa
+	@return returns abcsissa value
 	*/
-	~Point();
-
-
-	/*
-	\brief a function that calculates the length of a vector by two given points
-	\param second the end of the vector
-	\return a square length of vector
-	*/
-	const double absVector(Point second);
-
+	double GetAbscissa() const;
 
 	/*
-	\brief a function that returns abscise
-	\return returns abcsice
-	*/
-	double GetAbscise() const;
-
-
-	/*
-	\brief a function that returns ordinate
-	\return return ordinate
+	@brief a function that returns ordinate
+	@return return ordinate value
 	*/
 	double GetOrdinate() const;
 
-
 	/*
-	\brief a functions that sets abscise
+	@brief a functions that sets abscissa
 	*/
-	void SetAbscise(const double x);
-
+	void SetAbscissa(const double x);
 
 	/*
-	\brief  a functions that sets ordinate
+	@brief  a functions that sets ordinate
 	*/
 	void SetOrdinate(const double y);
 
-
 	/*
-	\brief copy constructor
-	\param other other point refence
-	*/
-	Point(const Point& other);
-
-
-	/*
-	\brief function overriding the output stream
-	\param out outstream
-	\param point point
-	\return returns point
+	@brief function overriding the output stream
+	@param out outstream
+	@param point point
+	@return returns point
 	*/
 	friend std::ostream& operator<< (std::ostream& out, const Point& point);
 
