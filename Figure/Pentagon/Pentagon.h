@@ -18,17 +18,18 @@ namespace PentagonClass
 		Pentagon(const double edge = 10, const Point centre = { 0 , 0 });
 
 		/*
-		@brief function which calculates a lenght of vector by its end and beginning
-		@param first beginning of the vector
-		@param second end of the vector
+		@brief function which calculates a distance between two points
+		@param first point
+		@param second point
+		@return distance between two points 
 		*/
-		const double absVector(Point first, Point second);
+		const double distance(Point first, Point second) const;
 
 		/*
 		@brief function which calculates pentagon peremeter
 		@return value of pentagon perimeter
 		*/
-		const double getPerimeter();
+		const double getPerimeter() const;
 
 		/*
 		@brief function which calculates pentagon area
@@ -42,21 +43,21 @@ namespace PentagonClass
 		@param ordinateStep value of vertical move
 		@return a new pentagon with changed points
 		*/
-		Pentagon movePentagon(const int abscissaStep, const int ordinateStep);
+		void movePentagon(const int abscissaStep, const int ordinateStep );
 
 		/*
-		@brief overloading the comparison operator by comparing pentagon areas
+		@brief overloading the comparison operator by compare two pentagons
 		@param p2 second pentagon to compare
 		@return true, if areas are equal and false, if areas are not equal
 		*/
-		bool operator ==(Pentagon& p2);
+		bool operator ==(const Pentagon& p2);
 
 		/*
 		@brief function, which overload the comparison operator by comparing pentagon areas
 		@param p2 second pentagon to compare
 		@return false, if areas are equal and true, if areas are not equal
 		*/
-		bool operator!=(Pentagon& p2);
+		bool operator!=(const Pentagon& p2);
 
 		/*
 		@brief function, which overload the output stream operator
@@ -82,7 +83,7 @@ namespace PentagonClass
 		@param edge pentagon edge which value need to be checked
 		@return true, if edge value > 0 and false, if < 0
 		*/
-		bool isCorrect(double edge);
+		bool isCorrect(const double edge) const;
 
 		double radius = abs(edge / (2 * cos(alpha)));
 
