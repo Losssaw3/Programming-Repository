@@ -2,24 +2,21 @@
 using namespace PentagonClass;
 
 Pentagon::Pentagon(const double edge, const Point centre)
+	: centre(centre), edge(edge) 
 {
-	this->edge = edge;
-	this->centre = centre;
-	this->radius = abs(edge / (2 * cos(alpha)));
-	if (isCorrect(edge))
+	if (!isCorrect(this->edge))
 	{
-		for (size_t i = 0; i < pentagonEdges; i++)
-		{
-			double  angleOfRotation = ((90 + phi * i) * M_PI) / 180;
-			double x = round((radius * cos(angleOfRotation) + centre.abscissa) * 100) / 100;
-			double y = round((radius * sin(angleOfRotation) + centre.ordinate) * 100) / 100;
-			Point a(x, y);
-			pentagonPoints.push_back(a);
-		}
+		throw("Ребро не может быть отрицательным!");
 	}
 	else
 	{
-		throw "edge cant be negative";
+		this->radius = abs(edge / (2 * cos(alpha)));
+		for (size_t i = 0; i < pentagonEdges; i++)
+		{
+			double  angleOfRotation = ((90 + phi * i) * M_PI) / 180;
+			Point point = calculateCoordinate(angleOfRotation, radius);
+			pentagonPoints[i] = point;
+		}
 	}
 }
 
@@ -39,17 +36,10 @@ void Pentagon::movePentagon(const int abscissaStep, const int ordinateStep)
 
 bool Pentagon::isCorrect(const double edge) const
 {
-	if (edge > 0)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return (edge > 0);
 }
 
-const double Pentagon::getPerimeter() const
+double Pentagon::getPerimeter() const
 {
 	double perimeter = 0;
 	for (size_t i = 0; i < pentagonEdges; i++)
@@ -66,25 +56,26 @@ double Pentagon::getArea() const
 
 bool Pentagon::operator==(const Pentagon& p2)
 {
-	if (getArea() == p2.getArea())
-	{
-		return true;
-	}
-	return false;
+	double precision = 0.01;
+	return(abs(getArea() - p2.getArea()) < precision);
 }
 
 bool Pentagon::operator!=(const Pentagon& p2)
 {
-	if (getArea() != p2.getArea())
-	{
-		return true;
-	}
-	return false;
+	double precision = 0.01;
+	return(!(abs(getArea() - p2.getArea()) < precision));
+}
+
+Point PentagonClass::Pentagon::calculateCoordinate(const double angle, const double radius)
+{
+	double x = round((radius * cos(angle) + centre.abscissa) * 100) / 100;
+	double y = round((radius * sin(angle) + centre.ordinate) * 100) / 100;
+	return Point(x , y);
 }
 
 ostream& PentagonClass::operator<< (ostream& out, const Pentagon& pentagon)
 {
-	for (size_t i = 0; i < pentagon.pentagonEdges; i++)
+	for (int i = 0; i < pentagon.pentagonEdges; i++)
 	{
 		out << pentagon.pentagonPoints[i] << "\n";
 	}

@@ -29,7 +29,7 @@ namespace PentagonClass
 		@brief function which calculates pentagon peremeter
 		@return value of pentagon perimeter
 		*/
-		const double getPerimeter() const;
+		double getPerimeter() const;
 
 		/*
 		@brief function which calculates pentagon area
@@ -66,6 +66,13 @@ namespace PentagonClass
 		@return out the pentagon point values in output stream
 		*/
 		friend ostream& operator<< (ostream& out, const Pentagon& pentagon);
+		/*
+		@brief function, which calculates a point coordinate
+		@param angle angle of the point
+		@param radius radius of the point
+		@return Point's coordinates 
+		*/
+		Point calculateCoordinate(const double angle , const double radius);
 
 	private:
 		const size_t pentagonEdges = 5;
@@ -87,6 +94,6 @@ namespace PentagonClass
 
 		double radius = abs(edge / (2 * cos(alpha)));
 
-		vector <Point> pentagonPoints;
+		vector<Point> pentagonPoints{0,0,0,0,0};
 	};
 }
