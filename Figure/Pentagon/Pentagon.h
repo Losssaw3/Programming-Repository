@@ -70,7 +70,7 @@ namespace PentagonClass
 		@brief function, which calculates a point coordinate
 		@param angle angle of the point
 		@param radius radius of the point
-		@return Point's coordinates 
+		@return Point's coordinates. 
 		*/
 		Point calculateCoordinate(const double angle , const double radius);
 

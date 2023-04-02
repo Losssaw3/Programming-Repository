@@ -1,4 +1,4 @@
-#include "Pentagon.h"
+п»ї#include "Pentagon.h"
 using namespace PentagonClass;
 
 Pentagon::Pentagon(const double edge, const Point centre)
@@ -6,7 +6,7 @@ Pentagon::Pentagon(const double edge, const Point centre)
 {
 	if (!isCorrect(this->edge))
 	{
-		throw("Ребро не может быть отрицательным!");
+		throw("Р РµР±СЂРѕ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Рј!");
 	}
 	else
 	{
@@ -75,7 +75,7 @@ Point PentagonClass::Pentagon::calculateCoordinate(const double angle, const dou
 
 ostream& PentagonClass::operator<< (ostream& out, const Pentagon& pentagon)
 {
-	for (int i = 0; i < pentagon.pentagonEdges; i++)
+	for (size_t i = 0; i < pentagon.pentagonEdges; i++)
 	{
 		out << pentagon.pentagonPoints[i] << "\n";
 	}
