@@ -1,31 +1,30 @@
 ﻿#include "Pentagon.h"
-using namespace PentagonClass;
+#include <sstream>
 
+using namespace PentagonClass;
 Pentagon::Pentagon(const double edge, const Point centre)
-	: centre(centre), edge(edge) 
+	: edge(edge) , centre(centre)
 {
 	if (!isCorrect(this->edge))
 	{
-		throw("Ребро не может быть отрицательным!");
+		throw std::out_of_range("Ребро не может быть отрицательным!");
 	}
-	else
+	this->radius = abs(edge / (2 * cos(alpha * M_PI / 180)));
+	for (size_t i = 0; i < pentagonEdges; i++)
 	{
-		this->radius = abs(edge / (2 * cos(alpha)));
-		for (size_t i = 0; i < pentagonEdges; i++)
-		{
-			double  angleOfRotation = ((90 + phi * i) * M_PI) / 180;
-			Point point = calculateCoordinate(angleOfRotation, radius);
-			pentagonPoints[i] = point;
-		}
+		double  angleOfRotation = (90 + (phi * i)) * M_PI / 180;
+		Point point = calculateCoordinate(angleOfRotation, radius);
+		pentagonPoints[i] = point;
 	}
+	pentagonPoints[pentagonEdges] = (pentagonPoints[0]);
 }
 
 const double Pentagon::distance(Point first, Point second) const
 {
-	return pow(second.abscissa - first.ordinate, 2) + pow(second.abscissa - first.ordinate, 2);
+	return sqrt((pow(second.abscissa - first.abscissa, 2) + pow(second.ordinate - first.ordinate, 2)));
 }
 
-void Pentagon::movePentagon(const int abscissaStep, const int ordinateStep)
+void Pentagon::movePentagon(const double abscissaStep, const double ordinateStep)
 {
 	for (size_t i = 0; i < pentagonEdges; i++)
 	{
@@ -44,9 +43,10 @@ double Pentagon::getPerimeter() const
 	double perimeter = 0;
 	for (size_t i = 0; i < pentagonEdges; i++)
 	{
-		perimeter += distance(pentagonPoints[i % pentagonEdges], pentagonPoints[(i + 1) % pentagonEdges]);
+		perimeter += (distance(pentagonPoints[i], pentagonPoints[i + 1]));
 	}
-	return sqrt(perimeter);
+	return perimeter;
+
 }
 
 double Pentagon::getArea() const
@@ -60,24 +60,33 @@ bool Pentagon::operator==(const Pentagon& p2)
 	return(abs(getArea() - p2.getArea()) < precision);
 }
 
-bool Pentagon::operator!=(const Pentagon& p2)
+std::string PentagonClass::Pentagon::ToString()
 {
-	double precision = 0.01;
-	return(!(abs(getArea() - p2.getArea()) < precision));
+	std::string pentagonString;
+	for (auto point : pentagonPoints)
+	{
+		pentagonString += '(' + std::to_string(int(point.abscissa)) + ',' + std::to_string(int(point.ordinate)) + ')';
+	}
+	return pentagonString;
 }
 
-Point PentagonClass::Pentagon::calculateCoordinate(const double angle, const double radius)
+bool Pentagon::operator!=(const Pentagon& p2)
+{
+	return !(*this == p2);
+}
+
+Point Pentagon::calculateCoordinate(const double angle, const double radius)
 {
 	double x = round((radius * cos(angle) + centre.abscissa) * 100) / 100;
 	double y = round((radius * sin(angle) + centre.ordinate) * 100) / 100;
 	return Point(x , y);
 }
 
-ostream& PentagonClass::operator<< (ostream& out, const Pentagon& pentagon)
+std::ostream& PentagonClass::operator<< (std::ostream& out, const Pentagon& pentagon)
 {
-	for (size_t i = 0; i < pentagon.pentagonEdges; i++)
+	for (std::vector<Point>::const_iterator out_it = pentagon.pentagonPoints.cbegin(); out_it < pentagon.pentagonPoints.cend() - 1; ++out_it)
 	{
-		out << pentagon.pentagonPoints[i] << "\n";
+		out << *out_it << "\n";
 	}
 	return out;
 }
