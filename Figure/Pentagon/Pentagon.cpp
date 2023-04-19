@@ -19,7 +19,7 @@ Pentagon::Pentagon(const double edge, const Point centre)
 	pentagonPoints[pentagonEdges] = (pentagonPoints[0]);
 }
 
-const double Pentagon::distance(Point first, Point second) const
+double Pentagon::distance(Point first, Point second)
 {
 	return sqrt((pow(second.abscissa - first.abscissa, 2) + pow(second.ordinate - first.ordinate, 2)));
 }
@@ -38,7 +38,7 @@ bool Pentagon::isCorrect(const double edge) const
 	return (edge > 0);
 }
 
-double Pentagon::getPerimeter() const
+double Pentagon::getPerimeter()
 {
 	double perimeter = 0;
 	for (size_t i = 0; i < pentagonEdges; i++)
